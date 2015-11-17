@@ -7,7 +7,7 @@ class Pacman
   boolean xchanged = false;
   boolean ychanged = false;
   int xLocation;
-  int yLocation;
+  int yLocation; 
   int prevX;
   int prevY;
   int size = 27;
