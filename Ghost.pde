@@ -24,7 +24,7 @@ class Ghost
     MAP = pacmap;
     ghostNum = numofGhost;
     img = loadImage("ghost"+ghostNum%4+".jpg");
-    System.out.println(ghostNum%4);
+    System.out.println(ghostNum%4); 
     xLocation = 900+ghostNum*20;
     yLocation = 220;
   }
