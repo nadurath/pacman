@@ -25,7 +25,7 @@ void setup()
   kinect = new SimpleOpenNI(this);
   kinect.enableDepth();
   kinect.enableUser();
-////////////////////////////////////////
+/////////////////////////////////////////
   Map = new ArrayList<pmap>();
   test = new Point(680,240);
   Map.add(new pmap(0,0,640,10));
