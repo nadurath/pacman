@@ -4,7 +4,7 @@ class Ghost
   boolean South = false;
   boolean East  = false;
   boolean West  = false;
-  Boolean isOutofBox = false;
+  Boolean isOutofBox = false; 
   Boolean isCloseToPacMan = false;
   int xLocation;
   int yLocation;
