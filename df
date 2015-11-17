@@ -1,0 +1,661 @@
+[33mcommit 5d6fb0bd1607146619260431d7440781171f4ffa[m
+Author: DAWOOD NADURATH <dadurath@gmail.com>
+Date:   Wed May 20 11:01:09 2015 -0500
+
+    i honestly dont remember if this is broken
+
+[1mdiff --git a/Ghost.pde b/Ghost.pde[m
+[1mindex d48471c..ee2f352 100644[m
+[1m--- a/Ghost.pde[m
+[1m+++ b/Ghost.pde[m
+[36m@@ -13,7 +13,7 @@[m [mclass Ghost[m
+   int Yinitial = 220;[m
+   int Xinitial;[m
+   int ghostNum;[m
+[31m-  int size = 20;[m
+[32m+[m[32m  int size = 25;[m
+   int count=0;[m
+   PImage img;[m
+   ArrayList<pmap> MAP;[m
+[1mdiff --git a/Pacman.pde b/Pacman.pde[m
+[1mindex d133d40..97e347a 100644[m
+[1m--- a/Pacman.pde[m
+[1m+++ b/Pacman.pde[m
+[36m@@ -10,7 +10,7 @@[m [mclass Pacman[m
+   int yLocation;[m
+   int prevX;[m
+   int prevY;[m
+[31m-  int size = 20;[m
+[32m+[m[32m  int size = 27;[m
+   int Yinitial = 200;[m
+   int Xinitial;[m
+   int count=0;[m
+[36m@@ -21,7 +21,7 @@[m [mclass Pacman[m
+   {[m
+     MAP = pacmap;[m
+     img = loadImage("pacmanEast.jpg");[m
+[31m-    xLocation = 788;[m
+[32m+[m[32m    xLocation = 666;[m
+     yLocation = 52;[m
+     [m
+   }[m
+[36m@@ -59,28 +59,28 @@[m [mclass Pacman[m
+         fill(247,179,5);[m
+         rect(0,0,640,480);[m
+         img = loadImage("pacmanNorth.jpg");[m
+[31m-        yLocation = yLocation-4;[m
+[32m+[m[32m        yLocation = yLocation-2;[m
+       } [m
+       else if (depth>1100 && p.x<320 && p.x>250)[m
+       {[m
+         fill(44,247,5);[m
+         rect(0,0,640,480);[m
+         img = loadImage("pacmanSouth.jpg");[m
+[31m-        yLocation = yLocation+4;[m
+[32m+[m[32m        yLocation = yLocation+2;[m
+       } [m
+       else if (p.x<250)[m
+       {[m
+         fill(5,39,247);[m
+         rect(0,0,640,480);[m
+         img = loadImage("pacmanWest.jpg");[m
+[31m-        xLocation = xLocation-4;[m
+[32m+[m[32m        xLocation = xLocation-2;[m
+       } [m
+       else if (p.x>320)[m
+       {[m
+         fill(166,5,247);[m
+         rect(0,0,640,480);[m
+         img = loadImage("pacmanEast.jpg");[m
+[31m-        xLocation = xLocation+4;[m
+[32m+[m[32m        xLocation = xLocation+2;[m
+       }[m
+     }[m
+     PVector loc = new PVector(xLocation,yLocation);[m
+[1mdiff --git a/PacmanDisplayTestingDawood.pde b/PacmanDisplayTestingDawood.pde[m
+[1mindex c3514f0..67b99a7 100644[m
+[1m--- a/PacmanDisplayTestingDawood.pde[m
+[1m+++ b/PacmanDisplayTestingDawood.pde[m
+[36m@@ -5,6 +5,8 @@[m [mimport SimpleOpenNI.*;[m
+ PFont f;[m
+ SimpleOpenNI kinect;[m
+ [m
+[32m+[m[32mPoint test;[m
+[32m+[m
+ int drawRuns = 0;[m
+ Boolean GameStart = false;[m
+ Ghost redGhost;[m
+[36m@@ -25,7 +27,7 @@[m [mvoid setup()[m
+   kinect.enableUser();[m
+ ////////////////////////////////////////[m
+   Map = new ArrayList<pmap>();[m
+[31m-  [m
+[32m+[m[32m  test = new Point(680,240);[m
+   Map.add(new pmap(0,0,640,10));[m
+   Map.add(new pmap(0,0,25,150));[m
+   Map.add(new pmap(0,150,125,15));[m
+[36m@@ -135,6 +137,7 @@[m [mvoid draw()[m
+     p.display();[m
+   [m
+   stroke(5);[m
+[32m+[m[32m  test.display();[m
+   fill(0,255,255);[m
+   rect(250,255,70,15);[m
+ [m
+[1mdiff --git a/Point.pde b/Point.pde[m
+[1mnew file mode 100644[m
+[1mindex 0000000..99c0d48[m
+[1m--- /dev/null[m
+[1m+++ b/Point.pde[m
+[36m@@ -0,0 +1,19 @@[m
+[32m+[m[32mclass Point {[m
+[32m+[m[32m  int x;[m
+[32m+[m[32m  int y;[m
+[32m+[m[32m  int size;[m
+[32m+[m
+[32m+[m[32m  Point(int xLoc, int yLoc) {[m
+[32m+[m[32m    x = xLoc;[m
+[32m+[m[32m    y = yLoc;[m
+[32m+[m[32m    size = 7;[m
+[32m+[m[32m  }[m
+[32m+[m[41m  [m
+[32m+[m[32m  void display()[m
+[32m+[m[32m  {[m
+[32m+[m[32m    noStroke();[m
+[32m+[m[32m    fill(255);[m
+[32m+[m[32m    ellipse(x,y,size,size);[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/pacman/splashscreen/Ghost.pde b/pacman/splashscreen/Ghost.pde[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ee2f352[m
+[1m--- /dev/null[m
+[1m+++ b/pacman/splashscreen/Ghost.pde[m
+[36m@@ -0,0 +1,171 @@[m
+[32m+[m[32mclass Ghost[m
+[32m+[m[32m{[m
+[32m+[m[32m  boolean North = false;[m
+[32m+[m[32m  boolean South = false;[m
+[32m+[m[32m  boolean East  = false;[m
+[32m+[m[32m  boolean West  = false;[m
+[32m+[m[32m  Boolean isOutofBox = false;[m
+[32m+[m[32m  Boolean isCloseToPacMan = false;[m
+[32m+[m[32m  int xLocation;[m
+[32m+[m[32m  int yLocation;[m
+[32m+[m[32m  int prevX;[m
+[32m+[m[32m  int prevY;[m
+[32m+[m[32m  int Yinitial = 220;[m
+[32m+[m[32m  int Xinitial;[m
+[32m+[m[32m  int ghostNum;[m
+[32m+[m[32m  int size = 25;[m
+[32m+[m[32m  int count=0;[m
+[32m+[m[32m  PImage img;[m
+[32m+[m[32m  ArrayList<pmap> MAP;[m
+[32m+[m[32m  boolean finished = false;[m
+[32m+[m[41m  [m
+[32m+[m[32m  Ghost(int numofGhost,ArrayList<pmap> pacmap)[m
+[32m+[m[32m  {[m
+[32m+[m[32m    MAP = pacmap;[m
+[32m+[m[32m    ghostNum = numofGhost;[m
+[32m+[m[32m    img = loadImage("ghost"+ghostNum%4+".jpg");[m
+[32m+[m[32m    System.out.println(ghostNum%4);[m
+[32m+[m[32m    xLocation = 900+ghostNum*20;[m
+[32m+[m[32m    yLocation = 220;[m
+[32m+[m[32m  }[m
+[32m+[m[41m  [m
+[32m+[m[32m  boolean getOutofBox()[m
+[32m+[m[32m  {[m
+[32m+[m[32m    if(xLocation>940)[m
+[32m+[m[32m     {[m[41m [m
+[32m+[m[32m            xLocation-=2;[m
+[32m+[m[32m     }[m
+[32m+[m[32m    if(xLocation<940)[m
+[32m+[m[32m      {[m
+[32m+[m[32m            xLocation+=2;[m
+[32m+[m[32m      }[m
+[32m+[m[32m      if(ghostNum%2 == 0 && xLocation==940 && yLocation!=174)[m
+[32m+[m[32m        {[m
+[32m+[m[32m             yLocation = yLocation-2;[m
+[32m+[m[32m             System.out.println(yLocation);[m
+[32m+[m[32m        }[m
+[32m+[m[32m       else if(ghostNum%2 == 1 && xLocation==940 && yLocation!=250)[m
+[32m+[m[32m       {[m
+[32m+[m[32m            yLocation = yLocation+2;[m
+[32m+[m[32m       }[m
+[32m+[m[32m       else[m
+[32m+[m[32m       {[m
+[32m+[m[41m         [m
+[32m+[m[32m       }[m
+[32m+[m[32m     if(xLocation==940 && (yLocation == 250 || yLocation == 174))[m
+[32m+[m[32m     {[m
+[32m+[m[32m       return true;[m
+[32m+[m[32m     }[m
+[32m+[m[32m     else[m
+[32m+[m[32m     {[m
+[32m+[m[32m       return false;[m
+[32m+[m[32m     }[m
+[32m+[m[32m  }[m
+[32m+[m[41m  [m
+[32m+[m[32m  Point moving(PVector Pacman)[m
+[32m+[m[32m  {[m
+[32m+[m[32m    if(count > 120+ghostNum*15)[m
+[32m+[m[32m    {[m
+[32m+[m[32m      finished = getOutofBox();[m
+[32m+[m[32m      if(finished)[m
+[32m+[m[32m       {[m
+[32m+[m[32m         startTrackingPacman();[m
+[32m+[m[32m       }[m
+[32m+[m[32m    }[m
+[32m+[m[41m    [m
+[32m+[m[32m    int pacmanX = (int)Pacman.x;[m
+[32m+[m[32m    int pacmanY = (int)Pacman.y;[m
+[32m+[m[32m    if(xLocation>1280)[m
+[32m+[m[32m    {[m
+[32m+[m[32m      xLocation=640;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    if(yLocation>480)[m
+[32m+[m[32m    {[m
+[32m+[m[32m      yLocation=0;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    for(pmap mapVals: MAP)[m
+[32m+[m[32m    {[m
+[32m+[m[32m      int[] temp = mapVals.vals();[m
+[32m+[m[32m      int x = temp[0];[m
+[32m+[m[32m      int y = temp[1];[m
+[32m+[m[32m      int xSize = temp[2];[m
+[32m+[m[32m      int ySize = temp[3];[m
+[32m+[m[32m      if((xLocation>x-size && xLocation<x+xSize) && (yLocation>y-size && yLocation<y+ySize))[m
+[32m+[m[32m         {[m[41m [m
+[32m+[m[32m           yLocation = prevY;[m
+[32m+[m[32m           xLocation = prevX;[m
+[32m+[m[32m         }[m
+[32m+[m[32m     }[m
+[32m+[m[32m      image(img,xLocation,yLocation,size,size);[m
+[32m+[m[32m      prevY = yLocation;[m
+[32m+[m[32m      prevX = xLocation;[m
+[32m+[m[32m    if(isOutofBox)[m
+[32m+[m[32m    {[m
+[32m+[m[32m      if(isCloseToPacMan)[m
+[32m+[m[32m      {[m
+[32m+[m[32m        if(xLocation>pacmanX)[m
+[32m+[m[32m        {[m
+[32m+[m[32m          xLocation = xLocation-2;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        else if(xLocation == pacmanX)[m
+[32m+[m[32m        {[m
+[32m+[m[32m          if(yLocation == pacmanY)[m
+[32m+[m[32m          {[m
+[32m+[m[41m            [m
+[32m+[m[32m          }[m
+[32m+[m[32m          if(yLocation>pacmanY)[m
+[32m+[m[32m          {[m
+[32m+[m[32m            if(Math.abs(yLocation-pacmanY)<3)[m
+[32m+[m[32m              yLocation = pacmanY;[m
+[32m+[m[32m              else[m
+[32m+[m[32m               yLocation = yLocation-2;[m
+[32m+[m[32m          }[m
+[32m+[m[32m          else[m
+[32m+[m[32m          {[m
+[32m+[m[32m            if(Math.abs(yLocation-pacmanY)<3)[m
+[32m+[m[32m              yLocation = pacmanY;[m
+[32m+[m[32m              else[m
+[32m+[m[32m              yLocation = yLocation+2;[m
+[32m+[m[32m          }[m
+[32m+[m[32m        }[m
+[32m+[m[32m        else[m
+[32m+[m[32m        {[m
+[32m+[m[32m          xLocation = xLocation+2;[m
+[32m+[m[32m        }[m
+[32m+[m[32m      }[m
+[32m+[m[32m      else[m
+[32m+[m[32m      {[m
+[32m+[m[41m        [m
+[32m+[m[32m      }[m[41m [m
+[32m+[m[32m    }[m
+[32m+[m[32m    else[m
+[32m+[m[32m    {[m
+[32m+[m[32m      if(yLocation>220)[m
+[32m+[m[32m      {[m
+[32m+[m[32m        if(count%5==0)[m
+[32m+[m[32m        {[m
+[32m+[m[32m          yLocation = Yinitial-2;[m
+[32m+[m[32m        }[m
+[32m+[m[32m      }[m
+[32m+[m[32m      else[m
+[32m+[m[32m      {[m
+[32m+[m[32m        if(count%5==0)[m
+[32m+[m[32m        {[m
+[32m+[m[32m          yLocation = Yinitial+2;[m
+[32m+[m[32m        }[m
+[32m+[m[32m      }[m
+[32m+[m[32m    }[m
+[32m+[m[32m    count++;[m
+[32m+[m[32m    Point temp = new Point(yLocation,xLocation);[m
+[32m+[m[32m    return temp;[m
+[32m+[m[32m  }[m
+[32m+[m[41m  [m
+[32m+[m[32m  void startTrackingPacman()[m
+[32m+[m[32m  {[m
+[32m+[m[32m    isCloseToPacMan = true;[m
+[32m+[m[32m    isOutofBox = true;[m
+[32m+[m[32m  }[m
+[32m+[m[41m  [m
+[32m+[m[41m  [m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/pacman/splashscreen/Pacman.pde b/pacman/splashscreen/Pacman.pde[m
+[1mnew file mode 100644[m
+[1mindex 0000000..97e347a[m
+[1m--- /dev/null[m
+[1m+++ b/pacman/splashscreen/Pacman.pde[m
+[36m@@ -0,0 +1,91 @@[m
+[32m+[m[32mclass Pacman[m
+[32m+[m[32m{[m
+[32m+[m[32m  boolean North = false;[m
+[32m+[m[32m  boolean South = false;[m
+[32m+[m[32m  boolean East  = false;[m
+[32m+[m[32m  boolean West  = false;[m
+[32m+[m[32m  boolean xchanged = false;[m
+[32m+[m[32m  boolean ychanged = false;[m
+[32m+[m[32m  int xLocation;[m
+[32m+[m[32m  int yLocation;[m
+[32m+[m[32m  int prevX;[m
+[32m+[m[32m  int prevY;[m
+[32m+[m[32m  int size = 27;[m
+[32m+[m[32m  int Yinitial = 200;[m
+[32m+[m[32m  int Xinitial;[m
+[32m+[m[32m  int count=0;[m
+[32m+[m[32m  PImage img;[m
+[32m+[m[32m  ArrayList<pmap> MAP;[m
+[32m+[m
+[32m+[m[32m  Pacman(ArrayList<pmap> pacmap)[m
+[32m+[m[32m  {[m
+[32m+[m[32m    MAP = pacmap;[m
+[32m+[m[32m    img = loadImage("pacmanEast.jpg");[m
+[32m+[m[32m    xLocation = 666;[m
+[32m+[m[32m    yLocation = 52;[m
+[32m+[m[41m    [m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  PVector moving(PVector p, int depth)[m
+[32m+[m[32m  {[m
+[32m+[m[32m    if(xLocation>1280)[m
+[32m+[m[32m       xLocation=640;[m
+[32m+[m[32m    if(yLocation>480)[m
+[32m+[m[32m       yLocation=0;[m
+[32m+[m[32m    if(xLocation<640)[m
+[32m+[m[32m       xLocation=1280;[m
+[32m+[m[32m    if(yLocation<0)[m
+[32m+[m[32m       yLocation=480;[m
+[32m+[m[32m    for(pmap mapVals: MAP)[m
+[32m+[m[32m    {[m
+[32m+[m[32m      int[] temp = mapVals.vals();[m
+[32m+[m[32m      int x = temp[0];[m
+[32m+[m[32m      int y = temp[1];[m
+[32m+[m[32m      int xSize = temp[2];[m
+[32m+[m[32m      int ySize = temp[3];[m
+[32m+[m[32m      if((xLocation>x-size && xLocation<x+xSize) && (yLocation>y-size && yLocation<y+ySize))[m
+[32m+[m[32m         {[m[41m [m
+[32m+[m[32m           xLocation= prevX;[m
+[32m+[m[32m           yLocation = prevY;[m
+[32m+[m[32m         }[m
+[32m+[m[32m    }[m
+[32m+[m[32m    image(img, xLocation, yLocation, size, size);[m
+[32m+[m[32m    prevY = yLocation;[m
+[32m+[m[32m    prevX = xLocation;[m
+[32m+[m[32m    if (GameStart)[m
+[32m+[m[32m    {[m
+[32m+[m[32m      if (depth<1050 && p.x<320 && p.x>250)[m
+[32m+[m[32m      {[m
+[32m+[m[32m        fill(247,179,5);[m
+[32m+[m[32m        rect(0,0,640,480);[m
+[32m+[m[32m        img = loadImage("pacmanNorth.jpg");[m
+[32m+[m[32m        yLocation = yLocation-2;[m
+[32m+[m[32m      }[m[41m [m
+[32m+[m[32m      else if (depth>1100 && p.x<320 && p.x>250)[m
+[32m+[m[32m      {[m
+[32m+[m[32m        fill(44,247,5);[m
+[32m+[m[32m        rect(0,0,640,480);[m
+[32m+[m[32m        img = loadImage("pacmanSouth.jpg");[m
+[32m+[m[32m        yLocation = yLocation+2;[m
+[32m+[m[32m      }[m[41m [m
+[32m+[m[32m      else if (p.x<250)[m
+[32m+[m[32m      {[m
+[32m+[m[32m        fill(5,39,247);[m
+[32m+[m[32m        rect(0,0,640,480);[m
+[32m+[m[32m        img = loadImage("pacmanWest.jpg");[m
+[32m+[m[32m        xLocation = xLocation-2;[m
+[32m+[m[32m      }[m[41m [m
+[32m+[m[32m      else if (p.x>320)[m
+[32m+[m[32m      {[m
+[32m+[m[32m        fill(166,5,247);[m
+[32m+[m[32m        rect(0,0,640,480);[m
+[32m+[m[32m        img = loadImage("pacmanEast.jpg");[m
+[32m+[m[32m        xLocation = xLocation+2;[m
+[32m+[m[32m      }[m
+[32m+[m[32m    }[m
+[32m+[m[32m    PVector loc = new PVector(xLocation,yLocation);[m
+[32m+[m[32m    count++;[m
+[32m+[m[32m    return loc;[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/pacman/splashscreen/PacmanDisplayTestingDawood.pde b/pacman/splashscreen/PacmanDisplayTestingDawood.pde[m
+[1mnew file mode 100644[m
+[1mindex 0000000..67b99a7[m
+[1m--- /dev/null[m
+[1m+++ b/pacman/splashscreen/PacmanDisplayTestingDawood.pde[m
+[36m@@ -0,0 +1,188 @@[m
+[32m+[m[32mimport java.io.*;[m
+[32m+[m[32mimport java.util.*;[m
+[32m+[m[32mimport java.awt.*;[m
+[32m+[m[32mimport SimpleOpenNI.*;[m
+[32m+[m[32mPFont f;[m
+[32m+[m[32mSimpleOpenNI kinect;[m
+[32m+[m
+[32m+[m[32mPoint test;[m
+[32m+[m
+[32m+[m[32mint drawRuns = 0;[m
+[32m+[m[32mBoolean GameStart = false;[m
+[32m+[m[32mGhost redGhost;[m
+[32m+[m[32mGhost blueGhost;[m
+[32m+[m[32mGhost pinkGhost;[m
+[32m+[m[32mGhost sunsentOrangeGhost;[m
+[32m+[m[32mPacman PacMan;[m
+[32m+[m
+[32m+[m[32mint[] userMap;[m
+[32m+[m[32mArrayList<pmap> Map;[m
+[32m+[m
+[32m+[m[32mvoid setup()[m
+[32m+[m[32m{[m
+[32m+[m[32m  size(640*2, 480);[m
+[32m+[m[32m  background(0);[m
+[32m+[m[32m  kinect = new SimpleOpenNI(this);[m
+[32m+[m[32m  kinect.enableDepth();[m
+[32m+[m[32m  kinect.enableUser();[m
+[32m+[m[32m////////////////////////////////////////[m
+[32m+[m[32m  Map = new ArrayList<pmap>();[m
+[32m+[m[32m  test = new Point(680,240);[m
+[32m+[m[32m  Map.add(new pmap(0,0,640,10));[m
+[32m+[m[32m  Map.add(new pmap(0,0,25,150));[m
+[32m+[m[32m  Map.add(new pmap(0,150,125,15));[m
+[32m+[m[32m  Map.add(new pmap(0,200,125,15));[m
+[32m+[m[32m  Map.add(new pmap(115,150,15,65));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(0,245,130,15));[m
+[32m+[m[32m  Map.add(new pmap(0,290,125,10));[m
+[32m+[m[32m  Map.add(new pmap(115,245,15,55));[m
+[32m+[m[32m  Map.add(new pmap(0,290,25,190));[m
+[32m+[m[32m  Map.add(new pmap(0,470,640,10));[m
+[32m+[m[32m  Map.add(new pmap(25,375,45,15));[m
+[32m+[m[41m  [m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(65,40,70,30));[m
+[32m+[m[32m  Map.add(new pmap(500,40,70,30));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(170,40,95,30));[m
+[32m+[m[32m  Map.add(new pmap(370,40,95,30));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(305,10,25,65));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(65,100,70,15));[m
+[32m+[m[32m  Map.add(new pmap(500,100,70,15));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(505,290,190,10));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(615,290,25,190));[m
+[32m+[m[32m  Map.add(new pmap(615,10,25,145));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(570,375,45,15));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(505,245,15,50));[m
+[32m+[m[32m  Map.add(new pmap(505,245,135,15));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(505,145,135,15));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(505,200,135,15));[m
+[32m+[m[32m  Map.add(new pmap(505,145,15,65));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(60,330,70,15));[m
+[32m+[m[32m  Map.add(new pmap(115,330,15,60));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(505,330,70,15));[m
+[32m+[m[32m  Map.add(new pmap(505,330,15,60));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(370,420,200,15));[m
+[32m+[m[32m  Map.add(new pmap(60,420,200,15));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(175,380,15,40));[m
+[32m+[m[32m  Map.add(new pmap(445,380,15,40));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(245,380,145,15));[m
+[32m+[m[32m  Map.add(new pmap(310,395,15,40));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(245,285,145,15));[m
+[32m+[m[32m  Map.add(new pmap(310,300,15,40));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(245,105,145,15));[m
+[32m+[m[32m  Map.add(new pmap(310,120,15,40));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(170,330,90,15));[m
+[32m+[m[32m  Map.add(new pmap(370,330,90,15));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(170,240,25,60));[m
+[32m+[m[32m  Map.add(new pmap(440,240,25,60));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(170,105,25,100));[m
+[32m+[m[32m  Map.add(new pmap(195,145,60,15));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(440,105,25,100));[m
+[32m+[m[32m  Map.add(new pmap(370,145,70,15));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(240,195,60,5));[m
+[32m+[m[32m  Map.add(new pmap(240,195,5,55));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(330,195,60,5));[m
+[32m+[m[32m  Map.add(new pmap(385,195,5,55));[m
+[32m+[m[41m  [m
+[32m+[m[32m  Map.add(new pmap(240,245,60,5));[m
+[32m+[m[32m  Map.add(new pmap(330,245,60,5));[m
+[32m+[m
+[32m+[m[32m///////////////////////////////////////[m
+[32m+[m[32m  f = loadFont("TrebuchetMS-48.vlw");[m
+[32m+[m[32m  textFont(f, 48);[m
+[32m+[m[32m  textAlign(CENTER);[m
+[32m+[m[32m  redGhost = new Ghost(1,Map);[m
+[32m+[m[32m  blueGhost= new Ghost(2,Map);[m
+[32m+[m[32m  pinkGhost= new Ghost(3,Map);[m
+[32m+[m[32m  sunsentOrangeGhost= new Ghost(4,Map);[m
+[32m+[m[32m  PacMan = new Pacman(Map);[m
+[32m+[m[32m  GameStart = true;[m
+[32m+[m[41m  [m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m//boolean sketchFullScreen()[m[41m [m
+[32m+[m[32m{[m
+[32m+[m[32m  //return true;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mvoid draw()[m
+[32m+[m[32m{[m
+[32m+[m[32m  background(0);[m
+[32m+[m[32m  kinect.update();[m
+[32m+[m[41m  [m
+[32m+[m[32m  for(pmap p:Map)[m
+[32m+[m[32m    p.display();[m
+[32m+[m[41m  [m
+[32m+[m[32m  stroke(5);[m
+[32m+[m[32m  test.display();[m
+[32m+[m[32m  fill(0,255,255);[m
+[32m+[m[32m  rect(250,255,70,15);[m
+[32m+[m
+[32m+[m[32m  int[] users = kinect.getUsers();[m
+[32m+[m
+[32m+[m[32m  if (users.length>0)[m
+[32m+[m[32m  {[m[41m [m
+[32m+[m[32m      int userId = users[0];[m
+[32m+[m[32m      if (kinect.isTrackingSkeleton(userId))[m
+[32m+[m[32m      {[m
+[32m+[m[32m        PVector position = new PVector();[m
+[32m+[m[32m        kinect.getCoM(userId, position);[m
+[32m+[m[32m        kinect.convertRealWorldToProjective(position, position);[m
+[32m+[m[32m        PVector pac = PacMan.moving(position,(int)position.z);[m
+[32m+[m[32m        redGhost.moving(pac);[m
+[32m+[m[32m        blueGhost.moving(pac);[m
+[32m+[m[32m        pinkGhost.moving(pac);[m
+[32m+[m[32m        sunsentOrangeGhost.moving(pac);[m
+[32m+[m[32m        fill(0,255,255);[m
+[32m+[m[32m        rect(250,255,70,15);[m
+[32m+[m[32m        fill(255, 0, 0);[m
+[32m+[m[32m        ellipse(position.x, map(position.z,750,1200,150,300), 10, 10);[m[41m [m
+[32m+[m[32m    }[m
+[32m+[m[32m  }[m
+[32m+[m[32m  //System.out.println(mouseX+"   "+mouseY);[m
+[32m+[m[32m  drawRuns++;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mvoid drawJoint(int userId, int jointId)[m
+[32m+[m[32m{[m
+[32m+[m[32m  PVector joint = new PVector();[m
+[32m+[m[32m  float confidence = kinect.getJointPositionSkeleton(userId, jointId, joint);[m
+[32m+[m
+[32m+[m[32m  if (confidence < 0.5)[m
+[32m+[m[32m    return;[m
+[32m+[m[32m  PVector cjoint = new PVector();[m
+[32m+[m[32m  kinect.convertRealWorldToProjective(joint, cjoint);[m
+[32m+[m[32m  fill(0, 255, 255);[m
+[32m+[m[32m  ellipse(cjoint.x, cjoint.y, 20, 20);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m
+[32m+[m[32mvoid onNewUser(SimpleOpenNI ourNI, int userId)[m
+[32m+[m[32m{[m
+[32m+[m[32m  println("Reach for the Skyyyy");[m
+[32m+[m[32m  kinect.startTrackingSkeleton(userId);[m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/pacman/splashscreen/Point.pde b/pacman/splashscreen/Point.pde[m
+[1mnew file mode 100644[m
+[1mindex 0000000..99c0d48[m
+[1m--- /dev/null[m
+[1m+++ b/pacman/splashscreen/Point.pde[m
+[36m@@ -0,0 +1,19 @@[m
+[32m+[m[32mclass Point {[m
+[32m+[m[32m  int x;[m
+[32m+[m[32m  int y;[m
+[32m+[m[32m  int size;[m
+[32m+[m
+[32m+[m[32m  Point(int xLoc, int yLoc) {[m
+[32m+[m[32m    x = xLoc;[m
+[32m+[m[32m    y = yLoc;[m
+[32m+[m[32m    size = 7;[m
+[32m+[m[32m  }[m
+[32m+[m[41m  [m
+[32m+[m[32m  void display()[m
+[32m+[m[32m  {[m
+[32m+[m[32m    noStroke();[m
+[32m+[m[32m    fill(255);[m
+[32m+[m[32m    ellipse(x,y,size,size);[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/pacman/splashscreen/pmap.pde b/pacman/splashscreen/pmap.pde[m
+[1mnew file mode 100644[m
+[1mindex 0000000..db5b353[m
+[1m--- /dev/null[m
+[1m+++ b/pacman/splashscreen/pmap.pde[m
+[36m@@ -0,0 +1,33 @@[m
+[32m+[m[32mclass pmap[m
+[32m+[m[32m{[m
+[32m+[m[32m  int xLocation;[m
+[32m+[m[32m  int yLocation;[m
+[32m+[m[32m  int xLength;[m
+[32m+[m[32m  int yLength;[m
+[32m+[m[32m  int[] values = new int[4];[m
+[32m+[m[41m  [m
+[32m+[m[32m  pmap(int xLoc,int yLoc,int xL,int yL)[m
+[32m+[m[32m  {[m
+[32m+[m[32m    xLocation = xLoc+640;[m
+[32m+[m[32m    yLocation = yLoc;[m
+[32m+[m[32m    xLength = xL;[m
+[32m+[m[32m    yLength = yL;[m
+[32m+[m[32m    values[0] = xLocation;[m
+[32m+[m[32m    values[1] = yLocation;[m
+[32m+[m[32m    values[2] = xLength;[m
+[32m+[m[32m    values[3] = yLength;[m
+[32m+[m[32m  }[m
+[32m+[m[41m  [m
+[32m+[m[32m  void display()[m
+[32m+[m[32m  {[m
+[32m+[m[32m    fill(255);[m
+[32m+[m[32m    noStroke();[m
+[32m+[m[32m    rect(xLocation,yLocation,xLength,yLength);[m
+[32m+[m[32m  }[m
+[32m+[m[41m  [m
+[32m+[m[32m  int[] vals()[m
+[32m+[m[32m  {[m
+[32m+[m[32m    return values;[m
+[32m+[m[32m  }[m
+[32m+[m[41m  [m
+[32m+[m[32m}[m
