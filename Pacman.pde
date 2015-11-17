@@ -17,7 +17,7 @@ class Pacman
   PImage img;
   ArrayList<pmap> MAP;
 
-  Pacman(ArrayList<pmap> pacmap)
+  Pacman(ArrayList<pmap> pacmap) 
   {
     MAP = pacmap;
     img = loadImage("pacmanEast.jpg");
