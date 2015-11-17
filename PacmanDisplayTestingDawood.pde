@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 import java.awt.*;
 import SimpleOpenNI.*;
-PFont f;
+PFont f; 
 SimpleOpenNI kinect;
 
 Point test;
