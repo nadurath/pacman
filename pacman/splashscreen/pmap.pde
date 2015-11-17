@@ -24,7 +24,7 @@ class pmap
     noStroke();
     rect(xLocation,yLocation,xLength,yLength);
   }
-  
+   
   int[] vals()
   {
     return values;
